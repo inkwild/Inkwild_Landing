@@ -1,0 +1,204 @@
+/* Inkwild — field-journal look (docs/BRAND.md): paper, ink, one green, Caveat for handwriting, Golos Text for reading. */
+
+/* Both fonts are served from this site (SIL OFL 1.1, licences in fonts/), so pages load nothing from elsewhere. */
+@font-face { font-family: "Caveat"; src: url("fonts/Caveat.ttf") format("truetype"); font-weight: 400 700; font-display: swap; }
+@font-face { font-family: "Golos Text"; src: url("fonts/GolosText.ttf") format("truetype"); font-weight: 400 900; font-display: swap; }
+
+:root {
+  color-scheme: light;
+  --paper: #E9DFC8;
+  --ink: #24323A;
+  --green: #2F5D46;
+  --ink-soft: #3D4C54;
+  --rule: rgba(36, 50, 58, 0.22);
+  --wash: rgba(47, 93, 70, 0.10);
+  --highlight: #F2D479;
+  --hand: "Caveat", "Segoe Print", "Bradley Hand", cursive;
+  --text: "Golos Text", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* A hand-inked underline, drawn once and reused under headings. */
+  --ink-line: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 10' preserveAspectRatio='none'%3E%3Cpath d='M2 6.5 C 38 3, 74 8.5, 118 5.5 S 196 3.5, 238 6' fill='none' stroke='%232F5D46' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background-color: var(--paper);
+  /* Faint stains, like an old notebook page. */
+  background-image:
+    radial-gradient(ellipse at 12% 8%, rgba(140, 105, 50, 0.07), transparent 42%),
+    radial-gradient(ellipse at 88% 72%, rgba(140, 105, 50, 0.06), transparent 46%),
+    radial-gradient(ellipse at 40% 110%, rgba(47, 93, 70, 0.05), transparent 50%);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: var(--text);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
+.skip {
+  position: absolute;
+  left: 16px;
+  top: -3rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 4px;
+  z-index: 10;
+}
+.skip:focus { top: 0.75rem; }
+
+.page {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 0 16px 3rem;
+}
+
+/* Header and footer */
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1.25rem;
+  padding: 1.25rem 0 0.75rem;
+  border-bottom: 1px solid var(--rule);
+}
+.brand {
+  font-family: var(--hand);
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--ink);
+  text-decoration: none;
+}
+.site-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.site-nav a[aria-current="page"] { text-decoration: none; font-weight: 600; color: var(--ink); }
+
+.site-footer {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
+}
+.site-footer p { margin: 0.25rem 0; }
+
+/* Text */
+h1, h2, h3 {
+  font-family: var(--hand);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--ink);
+}
+h1 { font-size: clamp(2.5rem, 8vw, 3.5rem); margin: 2rem 0 0.5rem; }
+h2 {
+  font-size: 2rem;
+  margin: 2.5rem 0 0.75rem;
+  padding-bottom: 0.4rem;
+  background: var(--ink-line) no-repeat left bottom / min(15rem, 70%) 0.6rem;
+}
+h3 { font-size: 1.6rem; margin: 1.75rem 0 0.25rem; }
+
+p, ul, ol { margin: 0 0 1rem; }
+ul, ol { padding-left: 1.25rem; }
+li { margin-bottom: 0.35rem; }
+li::marker { color: var(--green); }
+strong { font-weight: 600; }
+
+a {
+  color: var(--green);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  overflow-wrap: anywhere;
+}
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible, .skip:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.lead { font-size: 1.1875rem; }
+.muted { color: var(--ink-soft); }
+.date { font-family: var(--hand); font-size: 1.5rem; color: var(--green); margin-top: -0.25rem; }
+
+/* A journal card with a hand-drawn ink border. */
+.card {
+  margin: 1.5rem 0;
+  padding: 1.25rem 1.25rem 0.5rem;
+  border: 2px solid var(--ink);
+  border-radius: 255px 14px 225px 14px / 14px 225px 14px 255px;
+  background: rgba(255, 255, 255, 0.18);
+}
+.card.green { background: var(--wash); border-color: var(--green); }
+.card h2 { margin-top: 0.25rem; }
+
+/* Clear-font action, boxed like the game's buttons (BRAND.md: tappable = clear font in an ink box). */
+.button {
+  display: inline-block;
+  padding: 0.55rem 1.1rem;
+  border: 2px solid var(--ink);
+  border-radius: 14px 225px 14px 255px / 255px 14px 225px 14px;
+  background: var(--wash);
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+.button:hover { background: rgba(47, 93, 70, 0.18); }
+
+/* Sketch */
+.sketch { display: block; width: 100%; max-width: 22rem; height: auto; margin: 0.5rem 0 1rem; color: var(--ink); }
+
+/* Contents list on the policy page */
+.toc ol { columns: 2 14rem; column-gap: 2rem; padding-left: 1.5rem; }
+.toc li { break-inside: avoid; }
+
+/* Partner list */
+.partners { list-style: none; padding: 0; }
+.partners li {
+  padding: 0.6rem 0;
+  border-bottom: 1px dashed var(--rule);
+  margin: 0;
+}
+.partners li:last-child { border-bottom: 0; }
+.partners .what { display: block; color: var(--ink-soft); font-size: 0.9375rem; }
+
+/* DRAFT ONLY: placeholders and the draft note. Remove both before publishing. */
+.todo {
+  background: var(--highlight);
+  color: var(--ink);
+  padding: 0 0.25em;
+  border-radius: 2px;
+  font-weight: 600;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.draft-note {
+  margin: 1rem 0 0;
+  padding: 0.6rem 0.9rem;
+  border: 1px dashed var(--ink);
+  background: rgba(255, 255, 255, 0.45);
+  transform: rotate(-0.6deg);
+  font-size: 0.9375rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a { transition: text-decoration-thickness 0.1s ease; }
+}
+
+@media print {
+  body { background: #fff; }
+  .site-nav, .skip, .draft-note { display: none; }
+  a { color: var(--ink); }
+}
